@@ -54,14 +54,6 @@ int16_t INA226_read(void) {
   // MMA8451に対して6byteのデータを応答データに要求
   Wire.requestFrom(INA226_adr, 2);
 
-  // X軸レジスタのアドレスら計6byte取得する(X軸:14bit, Y軸:14bit, Z軸:14bit)
-  /* MMA8451_REG_OUT_X_MSB: 0x01  X軸上位バイト 
-   *                        0x02  X軸下位バイト
-   *                        0x03  Y軸上位バイト
-   *                        0x04  Y軸下位バイト
-   *                        0x05  Z軸上位バイト
-   *                        0x06  Z軸下位バイト
-   */
   power_consumption = Wire.read(); power_consumption <<= 8; power_consumption |= Wire.read();
 
 
@@ -85,7 +77,7 @@ void loop()
 {
   int16_t power_consumption;
   long trans_power_consumption;
-  
+
   power_consumption = INA226_read();
   trans_power_consumption = transPower(power_consumption);
 
